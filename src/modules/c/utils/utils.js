@@ -1,12 +1,3 @@
-// sum of two numbers
-    export function sum(a, b) {
-        return a + b;
-    }
-    // sum of array of numbers
-    export function sumArray(arr) {
-        return arr.reduce((a, b) => a + b, 0);
-    }
-
     export function getFormattedAmount(amount) {
         return (isNumber(amount) ? '$' : '') + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }

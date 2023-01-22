@@ -1,5 +1,5 @@
 import { LightningElement, api } from "lwc";
-import { getFormattedAmount } from "c/atsite_utils";
+import { getFormattedAmount } from "c/utils";
 import * as d3 from "d3";
 
 export default class Atsite_assetClassChart extends LightningElement {
