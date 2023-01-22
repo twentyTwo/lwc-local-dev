@@ -1,6 +1,8 @@
 import { LightningElement } from 'lwc';
+import { processMorningStarData, getAssetClassAndValueData } from './dataUtil';
 
 export default class Chart extends LightningElement {
+
     morningstarData = {
         id: "123",
         tpaId: "tpa_123",
@@ -82,4 +84,13 @@ export default class Chart extends LightningElement {
           },
         ],
       };
+
+      connectedCallback() {
+         // processMorningStarData(morningstarData);
+         let { assetColorMap, structuredData } = processMorningStarData(this.morningstarData);
+          console.log('assetColorMap');
+          console.log(assetColorMap);
+
+          
+      }
 }

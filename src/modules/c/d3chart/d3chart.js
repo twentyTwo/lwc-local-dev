@@ -15,6 +15,8 @@ export default class Atsite_assetClassChart extends LightningElement {
   assetClassDataRaw;
   assetClassTableData;
   assetClassList;
+
+  
   assetValueData;
   totalAsset;
 
