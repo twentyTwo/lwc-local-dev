@@ -3,198 +3,40 @@ import { getFormattedAmount } from "c/utils";
 import * as d3 from "d3";
 
 export default class Atsite_assetClassChart extends LightningElement {
-  
-  @api assetChartData;
-  
+   
   d3Initialized = false;
-  selectedPlan;
 
   color_scheme1 = ["#5288AD", "#7A9A02", "#A12B2A", "#8B5AA3", "#D9CC5D"];
-  color_scheme2 = ["#8088AD", "#7A9A02", "#A12B2A", "#8B5AA3", "#D9CC5D"];
-
-  assetClassDataRaw;
-  assetClassTableData;
-  assetClassList;
-
   
-  assetValueData;
-  totalAsset;
+  @api tableData;
+  @api tableDataSize;
+  @api totalAsset;
+  @api assetClassValue;
+  @api timeNow;
 
-  loadData1() {
-    this.selectedPlan = "All Plans";
-    this.processData();
-    this.initializeD3();
-
-  }
-
-  loadData2() {
-    this.selectedPlan = "DEMO12";
-    this.processData();
-    this.initializeD3();
-  }
-
-
-  
-
-  addColorProperty(assetClassDataRaw) {
-    try {
-      console.log("applyColor");
-      console.log(assetClassDataRaw);
-
-      var assetClassSummaryData =
-        assetClassDataRaw.assetClassSummary.assetClasses;
-      var assetClassPlanData = assetClassDataRaw.planDetails;
-
-      if (assetClassSummaryData) {
-        assetClassSummaryData.forEach((item, index) => {
-          item.color = this.color_scheme1[index];
-        });
-      }
-
-      if (assetClassPlanData) {
-        assetClassPlanData.forEach((item, index) => {
-          if (item.assetClasses) {
-            item.assetClasses.forEach((item1, index1) => {
-              item1.color = this.color_scheme2[index1];
-            });
-          }
-        });
-      }
-      return assetClassDataRaw;
-    } catch (e) {
-      console.error("error");
-      console.error(e);
+  get hasValue() {
+    if(this.tableData)
+    {
+      this.initializeD3();
+      return true;
     }
+    return false;
   }
-
-  constructAssetClassTableData() {
-    let assetClassTableData = [];
-    if(this.selectedPlan !== "All Plans"){
-    this.assetClassDataRaw.planDetails.forEach((item, index) => {
-      if(this.selectedPlan === item.planId){
-        if (item.assetClasses) {
-          item.assetClasses.forEach((item1, index1) => {
-            assetClassTableData.push({
-              class: item1.class,
-              assetValue: getFormattedAmount(item1.assetValue),
-              assetValueChangePercentage: item1.assetValueChangePercentage,
-              color: item1.color,
-              changeReference: item1.changeReference,
-              iconName: item1.assetValueChangePercentage.indexOf('-') > -1 ? 'iconDownArrow' : 'iconUpArrow'
-            });
-          });
-        }
-      }
-    });
-  }else{
-    this.assetClassDataRaw.assetClassSummary.assetClasses.forEach(
-      (item, index) => {
-        assetClassTableData.push({
-              class: item.class,
-              assetValue: getFormattedAmount(item.assetValue),
-              assetValueChangePercentage: item.assetValueChangePercentage,
-              color: item.color,
-              changeReference: item.changeReference,
-              iconName: item.assetValueChangePercentage.indexOf('-') > -1 ? 'iconDownArrow' : 'iconUpArrow'
-        });
-      }
-    );
-  }
-    return assetClassTableData;
-  }
-
-  constructAssetValueObject() {
-    let assetValueData = {
-      Stocks: 0,
-      Bonds: 0,
-      Balanced: 0,
-      Cash: 0,
-      Other: 0,
-    };
-
-
-    if(this.selectedPlan != "All Plans"){
-    this.assetClassDataRaw.planDetails.forEach((item, index) => {
-      if(this.selectedPlan === item.planId){
-        if (item.assetClasses) {
-          item.assetClasses.forEach((item1, index1) => {
-            assetValueData[item1.class] = item1.assetValue;
-          });
-        }
-        
-      }
-    });
-    }else{
-      this.assetClassDataRaw.assetClassSummary.assetClasses.forEach(
-        (item, index) => {
-          assetValueData[item.class] = item.assetValue;
-        }
-      );     
-  }
-    return assetValueData;
-  }
-
-  constructAssetClassArray() {
-    let assetClassArray = [];
-
-    // get plan details from assetClassDataRaw and construct assetClassArray
-    
-
-
-    if(this.selectedPlan !== "All Plans"){
-    this.assetClassDataRaw.planDetails.forEach((item, index) => {
-      if(this.selectedPlan === item.planId){
-        if (item.assetClasses) {
-          item.assetClasses.forEach((item1, index1) => {
-            if (!assetClassArray.includes(item1.class)) {
-              assetClassArray.push(item1.class);
-            }
-          });
-        }  
-      }     
-    });
-  }
-
-  else{
-    this.assetClassDataRaw.assetClassSummary.assetClasses.forEach(
-      (item, index) => {
-        if (!assetClassArray.includes(item.class)) {
-          assetClassArray.push(item.class);
-        }
-      }
-    );
-  }
-    return assetClassArray;
-  }
-
-  processData() {
-    // this.selectedPlan = "DEMO12"; 
-    // this.selectedPlan = "All Plans";
-    var assetClassDataRaw = JSON.parse(JSON.stringify(this.assetChartData));
-    this.assetClassDataRaw = this.addColorProperty(assetClassDataRaw);
-
-    this.assetClassTableData = this.constructAssetClassTableData();
-    console.log('this.assetClassTableData');
-    console.log(this.assetClassTableData);
-
-    this.assetClassList = this.constructAssetClassArray();
-    console.log('this.assetClassList');
-    console.log(this.assetClassList);
-    this.assetValueData = this.constructAssetValueObject();
-    console.log('this.assetValueData');
-    console.log(this.assetValueData);
-    
-    this.totalAsset = this.assetClassDataRaw.assetClassSummary.totalAssetValue;
-  }
+  
 
 
   renderedCallback() {
-    if (this.d3Initialized) {
-      return;
-    }
-    this.processData();
-    this.initializeD3();
-    this.d3Initialized = true;
+    // if (this.d3Initialized) {
+    //   return;
+    // }
+
+
+
+    
+
+
+
+    // this.d3Initialized = true;
   }
 
   initializeD3() {
@@ -229,13 +71,11 @@ export default class Atsite_assetClassChart extends LightningElement {
       };
       */
 
-    const donutChartData = this.assetValueData;
-    console.log("donutChartData");
-    console.log(donutChartData);
+    const donutChartData = this.assetClassValue;
 
     const color = d3
       .scaleOrdinal()
-      .domain(this.assetClassList)
+      .domain(Object.keys(this.assetClassValue))
       .range(this.color_scheme1);
 
     const pie = d3
@@ -309,51 +149,51 @@ export default class Atsite_assetClassChart extends LightningElement {
       .text("Total Asset");
   }
 
-  handleMouseOut(event) {
-    this.template
-      .querySelector("svg")
-      .querySelectorAll(".chart-slice")
-      .forEach((slice) => {
-        slice.style.opacity = 1;
-      });
+  // handleMouseOut(event) {
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelectorAll(".chart-slice")
+  //     .forEach((slice) => {
+  //       slice.style.opacity = 1;
+  //     });
 
-    this.template
-      .querySelector("svg")
-      .querySelector(".asset-value").textContent = this.totalAsset;
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelector(".asset-value").textContent = this.totalAsset;
 
-    this.template
-      .querySelector("svg")
-      .querySelector(".asset-label").textContent = "Total Asset";
-  }
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelector(".asset-label").textContent = "Total Asset";
+  // }
 
-  // event listener in table row
-  handleMouseOver(event) {
-    var parent = event.target.parentElement;
-    var assetType = parent.getAttribute("data-asset-type");
-    console.log(assetType);
+  // // event listener in table row
+  // handleMouseOver(event) {
+  //   var parent = event.target.parentElement;
+  //   var assetType = parent.getAttribute("data-asset-type");
+  //   console.log(assetType);
 
-    var assetValue = parent.getAttribute("data-asset-value");
-    console.log(assetValue);
+  //   var assetValue = parent.getAttribute("data-asset-value");
+  //   console.log(assetValue);
 
-    var chartSlice = "slice-" + assetType;
-    console.log(chartSlice);
+  //   var chartSlice = "slice-" + assetType;
+  //   console.log(chartSlice);
 
-    this.template
-      .querySelector("svg")
-      .querySelectorAll(".chart-slice")
-      .forEach((slice) => {
-        if (slice.classList.contains(chartSlice)) {
-          slice.style.opacity = 1;
-        } else {
-          slice.style.opacity = 0.2;
-        }
-      });
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelectorAll(".chart-slice")
+  //     .forEach((slice) => {
+  //       if (slice.classList.contains(chartSlice)) {
+  //         slice.style.opacity = 1;
+  //       } else {
+  //         slice.style.opacity = 0.2;
+  //       }
+  //     });
 
-    this.template
-      .querySelector("svg")
-      .querySelector(".asset-value").textContent = assetValue;
-    this.template
-      .querySelector("svg")
-      .querySelector(".asset-label").textContent = assetType;
-  }
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelector(".asset-value").textContent = assetValue;
+  //   this.template
+  //     .querySelector("svg")
+  //     .querySelector(".asset-label").textContent = assetType;
+  // }
 }

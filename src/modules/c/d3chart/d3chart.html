@@ -1,24 +1,65 @@
 <template>
-    <c-nav></c-nav>
+  <h1>hi</h1>
+
+  <!-- <template if:true={hasValue}>
+    <div class="table-responsive">
+      <table class="table" >
+        <tbody >
+          <template for:each={tableData} for:item="assetClass">
+            <!-- <p key={assetClass.class}>{assetClass.class}</p> -->
+            <tr class="asset-row" key={assetClass.class} data-asset-type={assetClass.class} data-asset-value={assetClass.assetValue}>
+              <td class="asset-header">  
+
+                  {assetClass.class}                                      
+              </td>           
+              <td class="right-aligned">
+                {assetClass.assetValueChangePercentage}%                                  
+              </td>
+              <td class="text-align-center">
+                <template if:true={assetClass.assetValueChangePercentage}>
+                  <span class="badge rounded-pill bg-light text-dark vertical-align">  
+                    {assetClass.changeReference}
+                  </span>
+              </template>   
+              </td>
+              <td class="right-aligned">
+                  {assetClass.assetValue}              
+              </td>
+            </tr>
+          </template>  
+            <tr>
+              <td colspan="4"></td>
+            </tr>        
+        </tbody>
+      </table>
+    </div>
+  </template> -->
+
+  <template if:true={hasValue}>
+    <h1>{timeNow}</h1>
+    <h1>{totalAsset}</h1>
+    <h1>{assetClassValue}</h1>
+    <h1>{tableData}</h1>
+    <div class="donut_chart" id="donut_chart"></div>
+  </template>
+  <!-- 
+  <template if:true={tableData}>
     <table>
       <tr>
-        <td colspan="4">
-          <button onclick={loadData1}> Load All Data</button>
-          <button onclick={loadData2}> Load Plan Data</button>
-        </td>
       </tr>
         <tr>
             <td> 
                 <div class="donut_chart" id="donut_chart"></div>
             </td>            
             <td>
+              <template if:true={tableData}>
               <div class="table-responsive" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
                 <table class="table" >
                   <tbody >
-                    <template for:each={assetClassTableData} for:item="assetClass">
+                    <template for:each={tableData} for:item="assetClass">
                       <tr class="asset-row" key={assetClass.class} data-asset-type={assetClass.class} data-asset-value={assetClass.assetValue}>
                         <td class="asset-header">  
-                            <!-- <c-at_list-item color={assetClass.color} liststyle="dot"></c-at_list-item> -->
+
                             {assetClass.class}                                      
                         </td>           
                         <td class="right-aligned">
@@ -27,7 +68,6 @@
                         <td class="text-align-center">
                           <template if:true={assetClass.assetValueChangePercentage}>
                             <span class="badge rounded-pill bg-light text-dark vertical-align">  
-                              <!-- <c-at_icon name={assetClass.iconName}></c-at_icon> -->
                               {assetClass.changeReference}
                             </span>
                         </template>   
@@ -43,7 +83,10 @@
                   </tbody>
                 </table>
               </div>
+            </template>
             </td>
+          
         </tr>
     </table>
+  </template> -->
 </template>

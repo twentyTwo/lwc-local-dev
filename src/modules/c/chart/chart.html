@@ -1,3 +1,6 @@
 <template>
-        <c-d3chart asset-chart-data={morningstarData}></c-d3chart>
+        <c-nav></c-nav>
+        <button onclick={loadAllData}> Load All Data</button>
+        <button onclick={loadPlanData}> Load Plan Data</button>
+        <c-d3chart table-data={tableData} table-data-size={tableDataSize} asset-class-value={assetValueObj} total-asset={totalAssetValue} time-now={timeNow}></c-d3chart>
 </template>
