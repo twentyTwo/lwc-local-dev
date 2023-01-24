@@ -1,15 +1,13 @@
 <template>
   <h1>hi</h1>
 
-  <!-- <template if:true={hasValue}>
+  <template if:true={hasValue}>
     <div class="table-responsive">
-      <table class="table" >
+      <table class="table" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
         <tbody >
           <template for:each={tableData} for:item="assetClass">
-            <!-- <p key={assetClass.class}>{assetClass.class}</p> -->
             <tr class="asset-row" key={assetClass.class} data-asset-type={assetClass.class} data-asset-value={assetClass.assetValue}>
               <td class="asset-header">  
-
                   {assetClass.class}                                      
               </td>           
               <td class="right-aligned">
@@ -33,14 +31,10 @@
         </tbody>
       </table>
     </div>
-  </template> -->
+  </template>
 
   <template if:true={hasValue}>
-    <h1>{timeNow}</h1>
-    <h1>{totalAsset}</h1>
-    <h1>{assetClassValue}</h1>
-    <h1>{tableData}</h1>
-    <div class="donut_chart" id="donut_chart"></div>
+    <div lwc:dom="manual" class="donut_chart" id="donut_chart"></div>
   </template>
   <!-- 
   <template if:true={tableData}>
