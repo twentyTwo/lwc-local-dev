@@ -14,7 +14,6 @@ export default class Atsite_assetClassChart extends LightningElement {
   @api assetClassValue;// = { Stocks: 1000, Bonds: 2000, Balanced: 3000, Cash: 4000, Other: 5000 };
   @api timeNow;
 
-  assetClassValue;
 
   // get assetclass() {
   //   return this.assetClassValue;
