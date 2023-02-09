@@ -10,20 +10,11 @@ export default class Atsite_assetClassChart extends LightningElement {
   
   @api tableData;
   @api tableDataSize;
-  @api totalAsset;//= '10000';
-  @api assetClassValue;// = { Stocks: 1000, Bonds: 2000, Balanced: 3000, Cash: 4000, Other: 5000 };
+  @api totalAsset;
+  @api assetClassValue;
   @api timeNow;
 
 
-  // get assetclass() {
-  //   return this.assetClassValue;
-  // }
-
-  // @api
-  // set assetclass(value) {
-  //   this.initializeD3(value);
-  //   this.assetClassValue = value;
-  // }
 
 
   get hasValue() {

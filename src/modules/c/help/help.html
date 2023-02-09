@@ -1,6 +1,19 @@
 <template>
         <c-nav></c-nav>
-        <h1>This is the help page!</h1>
-        {testData}
-        <c-help-child process={data}></c-help-child>  
+        <div class="accordion">
+                <div class="accordion-item">
+                  <h3 class="accordion-item-header" onclick={toggleAccordion}>Section 1</h3>
+
+                  <div class="accordion-item-content">
+                    <p>Content for section 1 goes here...</p>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-item-header">Section 2</h3>
+                  <div class="accordion-item-content">
+                    <p>Content for section 2 goes here...</p>
+                  </div>
+                </div>
+              </div>
+              
 </template>

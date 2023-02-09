@@ -7,14 +7,9 @@
             "rootComponent": "c/app"
         },
         {
-            "id": "help",
-            "path": "/help",
-            "rootComponent": "c/help"
-        },
-        {
-            "id": "chart",
-            "path": "/chart",
-            "rootComponent": "c/chart"
+            "id": "d3donutbarchart",
+            "path": "/d3donutbarchart",
+            "rootComponent": "c/d3donutbarchart"
         }
 
     ]

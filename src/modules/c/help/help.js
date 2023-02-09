@@ -1,30 +1,34 @@
 import { LightningElement } from 'lwc';
 
 export default class Help extends LightningElement {
-    data;
+    
+    toggleAccordion() {
+    var accordionHeaders = document.getElementsByClassName("accordion-item-header");
 
-    get testData() {
-        if(this.data) return;
-        
-        setTimeout(() => {
-            this.data = {
-                "dataToBeProcessedInChild": {
-                    "data": {
-                        "assetClasses": [
-                            {
-                                "assetClass": "Stocks",
-                                "assetClassValue": 1000
-                            },
-                            {
-                                "assetClass": "Bonds",
-                                "assetClassValue": 2000
-                            }]
-                    }
-                }
-            };
-        }
-        , 5000);
-
+    for (var i = 0; i < accordionHeaders.length; i++) {
+      accordionHeaders[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var accordionContent = this.nextElementSibling;
+        if (accordionContent.style.maxHeight) {
+          accordionContent.style.maxHeight = null;
+        } else {
+          accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+        } 
+      });
     }
+}
+
+addEvent() {
+
+document.querySelectorAll('h3').forEach(h3 => h3.addEventListener('click', function() {
+    this.toggleAccordion();
+    }));
+}
+
+renderedCallback() {
+    this.addEvent();
+}
+    
+    
 
 }

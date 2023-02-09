@@ -1,6 +1,4 @@
 <template>
-  <h1>hi</h1>
-
   <template if:true={hasValue}>
     <div class="table-responsive">
       <table class="table" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
@@ -36,51 +34,4 @@
   <template if:true={hasValue}>
     <div lwc:dom="manual" class="donut_chart" id="donut_chart"></div>
   </template>
-  <!-- 
-  <template if:true={tableData}>
-    <table>
-      <tr>
-      </tr>
-        <tr>
-            <td> 
-                <div class="donut_chart" id="donut_chart"></div>
-            </td>            
-            <td>
-              <template if:true={tableData}>
-              <div class="table-responsive" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
-                <table class="table" >
-                  <tbody >
-                    <template for:each={tableData} for:item="assetClass">
-                      <tr class="asset-row" key={assetClass.class} data-asset-type={assetClass.class} data-asset-value={assetClass.assetValue}>
-                        <td class="asset-header">  
-
-                            {assetClass.class}                                      
-                        </td>           
-                        <td class="right-aligned">
-                          {assetClass.assetValueChangePercentage}%                                  
-                        </td>
-                        <td class="text-align-center">
-                          <template if:true={assetClass.assetValueChangePercentage}>
-                            <span class="badge rounded-pill bg-light text-dark vertical-align">  
-                              {assetClass.changeReference}
-                            </span>
-                        </template>   
-                        </td>
-                        <td class="right-aligned">
-                            {assetClass.assetValue}              
-                        </td>
-                      </tr>
-                    </template>  
-                      <tr>
-                        <td colspan="4"></td>
-                      </tr>        
-                  </tbody>
-                </table>
-              </div>
-            </template>
-            </td>
-          
-        </tr>
-    </table>
-  </template> -->
 </template>
