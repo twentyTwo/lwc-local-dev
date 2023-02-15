@@ -51,3 +51,4 @@ temp
 # Build files
 build/
 dist/
+__generated_site__/
